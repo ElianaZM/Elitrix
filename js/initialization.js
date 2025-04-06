@@ -211,51 +211,57 @@ function initialize(a) {
 }
 
 function startBtnHandler() {
-	setTimeout(function() {
-		if (settings.platform == "mobile") {
-			try {
-				document.body.removeEventListener('touchstart', handleTapBefore, false);
-			} catch (e) {
+    setTimeout(function() {
+        if (settings.platform == "mobile") {
+            try {
+                document.body.removeEventListener('touchstart', handleTapBefore, false);
+            } catch (e) {
+                // Manejo de errores si es necesario
+            }
 
-			}
+            try {
+                document.body.removeEventListener('touchstart', handleTap, false);
+            } catch (e) {
+                // Manejo de errores si es necesario
+            }
 
-			try {
-				document.body.removeEventListener('touchstart', handleTap, false);
-			} catch (e) {
+            document.body.addEventListener('touchstart', handleTap, false);
+        } else {
+            try {
+                document.body.removeEventListener('mousedown', handleClickBefore, false);
+            } catch (e) {
+                // Manejo de errores si es necesario
+            }
 
-			}
+            try {
+                document.body.removeEventListener('mousedown', handleClick, false);
+            } catch (e) {
+                // Manejo de errores si es necesario
+            }
 
-			document.body.addEventListener('touchstart', handleTap, false);
-		} else {
-			try {
-				document.body.removeEventListener('mousedown', handleClickBefore, false);
-			} catch (e) {
+            document.body.addEventListener('mousedown', handleClick, false);
+        }
+    }, 5);
 
-			}
+    if (!canRestart) return false;
 
-			try {
-				document.body.removeEventListener('mousedown', handleClick, false);
-			} catch (e) {
+    if ($('#openSideBar').is(':visible')) {
+        $('#openSideBar').fadeOut(150, "linear");
+    }
 
-			}
+    if (importing == 1) {
+        init(1);
+        checkVisualElements(0);
+    } else {
+        resumeGame();
+    }
 
-			document.body.addEventListener('mousedown', handleClick, false);
-		}
-	}, 5);
-
-	if (!canRestart) return false;
-
-	if ($('#openSideBar').is(':visible')) {
-		$('#openSideBar').fadeOut(150, "linear");
-	}
-
-	if (importing == 1) {
-		init(1);
-		checkVisualElements(0);
-	} else {
-		resumeGame();
-	}
+    // Agregar el evento click al botón startBtn
+    document.getElementById('startBtn').addEventListener('click', function() {
+        console.log('Juego iniciado');
+    });
 }
+
 
 function handlePause() {
 	if (gameState == 1 || gameState == 2) {
