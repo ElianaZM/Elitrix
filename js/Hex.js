@@ -1,3 +1,5 @@
+var gdx = 0;
+var kdy = 0;
 function Hex(sideLength) {
     this.playThrough = 0;
     this.fillColor = [44, 62, 80];
@@ -126,3 +128,8 @@ function Hex(sideLength) {
 function arrayToColor(arr) {
     return 'rgb(' + arr[0] + ',' + arr[1] + ',' + arr[2] + ')';
 }
+function saveEvent(eventName) {
+
+    console.log("Evento guardado:", eventName);
+}
+window.Hex = Hex;

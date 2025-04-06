@@ -1,3 +1,10 @@
+window.playerName = localStorage.getItem("playerName");
+if (!playerName) {
+    playerName = prompt("Ingresá tu nombre para comenzar:") || "Anónimo";
+    localStorage.setItem("playerName", playerName);
+}
+
+
 // t: current time, b: begInnIng value, c: change In value, d: duration
 function easeOutCubic(t, b, c, d) {
 	return c * ((t = t / d - 1) * t * t + 1) + b;
@@ -142,23 +149,28 @@ function hideText() {
 }
 
 function gameOverDisplay() {
-	settings.ending_block=false;
-	Cookies.set("visited",true);
+	settings.ending_block = false;
+	Cookies.set("visited", true);
 	var c = document.getElementById("canvas");
 	c.className = "blur";
+
+	savePlayerScore(score);
+
 	updateHighScores();
-	if (highscores.length === 0 ){
+
+	if (highscores.length === 0) {
 		$("#currentHighScore").text(0);
+	} else {
+		$("#currentHighScore").text(highscores[0]);
 	}
-	else {
-		$("#currentHighScore").text(highscores[0])
-	}
+
 	$("#gameoverscreen").fadeIn();
 	$("#buttonCont").fadeIn();
 	$("#container").fadeIn();
 	$("#socialShare").fadeIn();
 	$("#restart").fadeIn();
-    set_score_pos();
+	set_score_pos();
+	showPlayerRanking();
 }
 
 function updateHighScores (){
@@ -167,6 +179,16 @@ function updateHighScores (){
     $("#2place").text(highscores[1]);
     $("#3place").text(highscores[2]);
 }
+
+function savePlayerScore(score) {
+	let scores = JSON.parse(localStorage.getItem("highScores") || "[]");
+	scores.push({ name: playerName, score: score });
+
+	scores.sort((a, b) => b.score - a.score);
+	scores = scores.slice(0, 10);
+
+	localStorage.setItem("highScores", JSON.stringify(scores));
+} 
 
 var pausable = true;
 function pause(o) {

@@ -1,3 +1,14 @@
+let playerName = localStorage.getItem("playerName");
+
+if (!playerName) {
+    playerName = prompt("Ingresá tu nombre para comenzar:");
+    if (playerName) {
+        localStorage.setItem("playerName", playerName);
+    } else {
+        playerName = "Anónimo";
+    }
+}
+
 $(document).ready(function() {
 	initialize();
 });
