@@ -1,2 +1,0 @@
-# Elitrix
-Hetrix game modifications
