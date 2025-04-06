@@ -133,3 +133,21 @@ function saveEvent(eventName) {
     console.log("Evento guardado:", eventName);
 }
 window.Hex = Hex;
+Hex.prototype.update = function () {
+    if (this.currentBlock === null) {
+        this.createBlock();
+        return;
+    }
+
+    // Movimiento hacia el centro
+    this.currentBlock.radius -= this.speed;
+
+    // Radio mínimo donde el bloque colisiona con el centro
+    const COLLISION_RADIUS = 35;
+
+    if (this.currentBlock.radius <= COLLISION_RADIUS) {
+        this.currentBlock.radius = COLLISION_RADIUS;
+        this.place();
+        this.currentBlock = null;
+    }
+};

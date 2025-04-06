@@ -8,6 +8,7 @@ function update(dt) {
 			waveone.prevTimeScored = MainHex.ct;
 		}
 	}
+	const minRadius = (MainHex.sideLength / 2) * Math.sqrt(3); 
 	var lowestDeletedIndex = 99;
 	var i;
 	var j;
@@ -15,13 +16,24 @@ function update(dt) {
 
 	var objectsToRemove = [];
 	for (i = 0; i < blocks.length; i++) {
-		MainHex.doesBlockCollide(blocks[i]);
 		if (!blocks[i].settled) {
-			if (!blocks[i].initializing) blocks[i].distFromHex -= blocks[i].iter * dt * settings.scale;
+			if (!blocks[i].initializing) {
+				blocks[i].distFromHex -= blocks[i].iter * dt * settings.scale;
+
+				if (blocks[i].distFromHex <= minRadius) {
+					blocks[i].distFromHex = minRadius;
+					blocks[i].settled = 1;
+					blocks[i].checked = 1;
+					saveEvent('collision');
+
+					MainHex.addBlock(blocks[i]);
+				}
+			}
 		} else if (!blocks[i].removed) {
 			blocks[i].removed = 1;
 		}
 	}
+	
 
 	for (i = 0; i < MainHex.blocks.length; i++) {
 		for (j = 0; j < MainHex.blocks[i].length; j++) {
