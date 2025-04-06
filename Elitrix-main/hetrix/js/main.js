@@ -34,14 +34,17 @@ function scaleCanvas() {
 }
 
 function setBottomContainer() {
-    var buttonOffset = $("#buttonCont").offset().top;
+    var $buttonCont = $("#buttonCont");
+    if ($buttonCont.length === 0) return; // Evita error si no existe
+
+    var buttonOffset = $buttonCont.offset().top;
     var playOffset = trueCanvas.height / 2 + 100 * settings.scale;
     var delta = buttonOffset - playOffset - 29;
+
     if (delta < 0) {
         $("#bottomContainer").css("margin-bottom", "-" + Math.abs(delta) + "px");
     }
 }
-
 function set_score_pos() {
     $("#container").css('margin-top', '0');
     var middle_of_container = ($("#container").height()/2 + $("#container").offset().top);
