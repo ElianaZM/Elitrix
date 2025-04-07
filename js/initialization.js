@@ -1,3 +1,9 @@
+const socket = new WebSocket('wss://gamehubmanager-ucp2025.azurewebsites.net/ws');
+socket.addEventListener("open", (event) => {
+	socket.send("Hello Server!");
+});
+
+
 let playerName = localStorage.getItem("playerName");
 
 if (!playerName) {

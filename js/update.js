@@ -83,3 +83,16 @@ function update(dt) {
 
 	MainHex.ct += dt;
 }
+function enviarEvento(evento, valor) {
+	const mensaje = {
+		game: "Hetrix",
+		player: "Eliana",
+		event: rotate,
+		value: 10
+	};
+
+	if (socket.readyState === WebSocket.OPEN) {
+		socket.send(JSON.stringify(mensaje));
+		console.log("Enviado:", mensaje);
+	}
+}
