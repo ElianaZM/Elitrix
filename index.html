@@ -90,22 +90,25 @@
 		</script>
 		<div id='highScoreInGameText'>
 			<div id='highScoreInGameTextHeader'>HIGH SCORE</div><div id='currentHighScore'>10292</div>
-		</div>
-		<div id="gameoverscreen">
-			<div id='container'>
-				<div id='gameOverBox' class='GOTitle'>GAME OVER</div>
-				<div id='cScore'>1843</div>
+		</div>    
+		<div id="rankingContainer" style="position: absolute; top: 10px; right: 10px; background-color: rgba(255,255,255,0.9); padding: 10px; border-radius: 10px; z-index: 10000;">
+	<h2 style="margin: 0; font-size: 1.2em;">Ranking</h2>
+	<ol id="rankingList" style="padding-left: 20px; margin: 0;"></ol>
+	<div id='cScore'>1843</div>
 				<div id='highScoresTitle' class='GOTitle'>HIGH SCORES</div>
 				<div class='score'><span class='scoreNum'>1.</span> <div id="1place" style="display:inline;">0</div></div>
 				<div class='score'><span class='scoreNum'>2.</span> <div id="2place" style="display:inline;">0</div></div>
 				<div class='score'><span class='scoreNum'>3.</span> <div id="3place" style="display:inline;">0</div></div>
+
+</div>
+
+		<div id="gameoverscreen">
+			<div id='container'>
+				<div id='gameOverBox' class='GOTitle'>GAME OVER</div>
+				
 			</div>
 			<div id='bottomContainer'>
-				<img id='restart' src='./images/btn_restart.svg' height='57px'>
-				<div id="rankingContainer">
-					<h2>Ranking de Jugadores</h2>
-					<ol id="rankingList"></ol>
-				  </div>
+				<img id='restart' src='./images/btn_restart.svg' height='57px'>		
 				  		
 				</div>
 				<div id='buttonCont'>
