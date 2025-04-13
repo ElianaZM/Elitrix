@@ -156,28 +156,13 @@ function gameOverDisplay() {
 
 	savePlayerScore(score);
 
-	updateHighScores();
-
-	if (highscores.length === 0) {
-		$("#currentHighScore").text(0);
-	} else {
-		$("#currentHighScore").text(highscores[0]);
-	}
-
+	
 	$("#gameoverscreen").fadeIn();
 	$("#buttonCont").fadeIn();
 	$("#container").fadeIn();
 	$("#socialShare").fadeIn();
 	$("#restart").fadeIn();
 	set_score_pos();
-	showPlayerRanking();
-}
-
-function updateHighScores (){
-    $("#cScore").text(score);
-    $("#1place").text(highscores[0]);
-    $("#2place").text(highscores[1]);
-    $("#3place").text(highscores[2]);
 }
 
 function savePlayerScore(score) {
