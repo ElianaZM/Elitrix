@@ -38,6 +38,7 @@ $(document).ready(function() {
 		console.log("initialize");
 		initialize();
 		}
+
 	
 });
 function initialize(a) {
