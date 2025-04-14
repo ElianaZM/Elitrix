@@ -62,7 +62,7 @@ function Hex(sideLength) {
                 block.distFromHex = (this.sideLength / 2) * Math.sqrt(3);
                 block.settled = 1;
                 block.checked = 1;
-                saveEvent('collision');
+                saveEvent('collision',0);
             }
         }
     };
@@ -95,7 +95,7 @@ function Hex(sideLength) {
 
         this.targetAngle -= steps * 60;
         this.lastRotate = Date.now();
-        saveEvent('rotate');
+        saveEvent('rotate',0);
     };
 
     this.draw = function() {
@@ -128,8 +128,9 @@ function Hex(sideLength) {
 function arrayToColor(arr) {
     return 'rgb(' + arr[0] + ',' + arr[1] + ',' + arr[2] + ')';
 }
-function saveEvent(eventName) {
-
+// // function saveEvent(eventName,value = 0) {
+    function saveEvent(eventName) {
+    // console.log("Evento guardado:", eventName, "Valor:", value);
     console.log("Evento guardado:", eventName);
     var dataEvent={
         "game":"Hetrix",

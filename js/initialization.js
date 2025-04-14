@@ -5,24 +5,24 @@ function connectws () {
 	ws.onmessage = function(e) {
 	  console.log('Message:', e.data);
 	  try {
-		console.log("Aca tamos");
+	
 		const data = JSON.parse(e.data);
-		console.log("Seguimos");
+		
 		var datos= JSON.parse(e.data)
 		console.log(datos);
-		console.log("Entro la balubi");
+		
 	// 	if (e.data[0].players && Array.isArray(e.data[0].players)) {
-			console.log("Entro");
+			
 			const sortedPlayers = datos[0].players.sort((a, b) => b.value - a.value);
-			console.log("LLega aca" + sortedPlayers);
+			
 			const topPlayers = sortedPlayers.slice(0, 5);
-			console.log	(topPlayers);
+		
 			
 
-			let html = "";
+			let html = "<h3>🏆 Ranking</h3><br>";
 			topPlayers.forEach((player, index) => {
-
-				html += `Rank ${index + 1}: ${player.eventName} (${player.value})<br>`;
+				
+				html += ` ${index + 1}: ${player.eventName} (${player.value})<br>`;
 			});
 			
 			document.getElementById("Leaderboard").innerHTML = html;

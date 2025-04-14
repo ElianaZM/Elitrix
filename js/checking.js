@@ -56,7 +56,9 @@ function consolidateBlocks(hex, side, index) {
     
     // Combo detection - just before deletion process
     if (deleting.length >= 3) {
-        console.log('Combo detectado: Se eliminaron', deleting.length, 'bloques.');
+        // let puntos = 9 + (deleting.length - 3); 
+    console.log('Combo detectado: Se eliminaron', deleting.length, 'bloques. Se suman', puntos, 'puntos.');
+    // saveEvent('score', puntos); 
     }
 
     // Process the deletion of blocks
