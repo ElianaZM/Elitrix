@@ -144,7 +144,8 @@ function saveEvent(eventName) {
         rankingContainer[0].innerHTML ="Cargando..."
 
 
-        var ranking =showPlayerRanking[0].players.sort(funct return b.value - a.value;
+        var ranking = showPlayerRanking[0].players.sort((a, b) => b.value - a.value);
+
 });
 
       
@@ -167,10 +168,8 @@ Hex.prototype.update = function () {
         return;
     }
 
-    // Movimiento hacia el centro
     this.currentBlock.radius -= this.speed;
 
-    // Radio mínimo donde el bloque colisiona con el centro
     const COLLISION_RADIUS = 35;
 
     if (this.currentBlock.radius <= COLLISION_RADIUS) {
