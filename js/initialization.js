@@ -4,6 +4,33 @@ function connectws () {
 	
 	ws.onmessage = function(e) {
 	  console.log('Message:', e.data);
+	  try {
+		console.log("Aca tamos");
+		const data = JSON.parse(e.data);
+		console.log("Seguimos");
+		var datos= JSON.parse(e.data)
+		console.log(datos);
+		console.log("Entro la balubi");
+	// 	if (e.data[0].players && Array.isArray(e.data[0].players)) {
+			console.log("Entro");
+			const sortedPlayers = datos[0].players.sort((a, b) => b.value - a.value);
+			console.log("LLega aca" + sortedPlayers);
+			const topPlayers = sortedPlayers.slice(0, 5);
+			console.log	(topPlayers);
+			
+
+			let html = "";
+			topPlayers.forEach((player, index) => {
+
+				html += `Rank ${index + 1}: ${player.eventName} (${player.value})<br>`;
+			});
+			
+			document.getElementById("Leaderboard").innerHTML = html;
+	// 	}
+	} catch (err) {
+		console.error("Error procesando datos de ranking:", err);
+		document.getElementById("Leaderboard").innerText = "Error cargando ranking.";
+	}
 	};
   
 	ws.onclose = function(e) {
@@ -28,9 +55,7 @@ if (!playerName) {
     playerName = prompt("Ingresá tu nombre para comenzar:");
     if (playerName) {
         localStorage.setItem("playerName", playerName);
-    } else {
-        playerName = "Anónimo";
-    }
+    } 
 }
 
 $(document).ready(function() {
@@ -38,28 +63,7 @@ $(document).ready(function() {
 		console.log("initialize");
 		initialize();
 		}
-		ws.onmessage = function(event) {
-			console.log('Mensaje recibido:', event.data);
-	
-			try {
-				const data = JSON.parse(event.data);
-	
-				if (data.players && Array.isArray(data.players)) {
-					const sortedPlayers = data.players.sort((a, b) => b.value - a.value);
-					const topPlayers = sortedPlayers.slice(0, 5);
-	
-					let html = "";
-					topPlayers.forEach((player, index) => {
-						html += `Rank ${index + 1}: ${player.player} (${player.value})<br>`;
-					});
-	
-					document.getElementById("ranking-content").innerHTML = html;
-				}
-			} catch (err) {
-				console.error("Error procesando datos de ranking:", err);
-				document.getElementById("ranking-content").innerText = "Error cargando ranking.";
-			}
-		};
+
 
 	
 });

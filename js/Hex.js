@@ -130,39 +130,14 @@ function arrayToColor(arr) {
 }
 function saveEvent(eventName) {
 
-
     console.log("Evento guardado:", eventName);
     var dataEvent={
         "game":"Hetrix",
         "player":playerName,
         "event":eventName,
-        "value": 1
+        "value": 9
     }
 
-    ws.onmessage = function(event) {
-        try {
-            const data = JSON.parse(event.data);
-    
-            if (data.players && Array.isArray(data.players)) {
-                const sortedPlayers = data.players.sort((a, b) => b.score - a.score);
-                const topPlayers = sortedPlayers.slice(0, 5);
-    
-                let html = "";
-                topPlayers.forEach((player, index) => {
-                    html += `Rank ${index + 1}: ${player.name} (${player.score})<br>`;
-                });
-    
-                document.getElementById("ranking-content").innerHTML = html;
-            }
-        } catch (err) {
-            console.error("Error procesando datos de ranking:", err);
-            document.getElementById("ranking-content").innerText = "Error cargando ranking.";
-        }
-    };
-    
- 
-
-     
 
     if (ws.readyState === WebSocket.OPEN) {
          ws.send(JSON.stringify(dataEvent));
