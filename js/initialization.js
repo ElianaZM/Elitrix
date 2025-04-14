@@ -1,7 +1,25 @@
-const socket = new WebSocket('wss://gamehubmanager-ucp2025.azurewebsites.net/ws');
-socket.addEventListener("open", (event) => {
-	socket.send("Hello Server!");
-});
+let ws;
+function connectws () {
+	ws = new WebSocket('wss://gamehubmanager-ucp2025.azurewebsites.net/ws');
+	
+	ws.onmessage = function(e) {
+	  console.log('Message:', e.data);
+	};
+  
+	ws.onclose = function(e) {
+	  console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+	  setTimeout(function() {
+		connectws();
+	  }, 1000);
+	};
+  
+	ws.onerror = function(err) {
+	  console.error('Socket encountered error: ', err.message, 'Closing socket');
+	  ws.close();
+	};
+  }
+  
+  connectws ();
 
 
 let playerName = localStorage.getItem("playerName");
@@ -16,7 +34,11 @@ if (!playerName) {
 }
 
 $(document).ready(function() {
-	initialize();
+	ws.onopen = function(){
+		console.log("initialize");
+		initialize();
+		}
+	
 });
 function initialize(a) {
 	window.rush = 1;

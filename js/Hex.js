@@ -130,7 +130,35 @@ function arrayToColor(arr) {
 }
 function saveEvent(eventName) {
 
+
     console.log("Evento guardado:", eventName);
+    var dataEvent={
+        "game":"Hetrix",
+        "player":"Eliana",
+        "event":eventName,
+        "value": 1
+    }
+    ws.addEventListener("message", (event) => {
+        var showPlayerRanking =JSON.parse(event.data);
+
+        rankingContainer[0].innerHTML ="Cargando..."
+
+
+        var ranking =showPlayerRanking[0].players.sort(funct return b.value - a.value;
+});
+
+      
+
+      console.log(showPlayerRanking);
+
+    if (ws.readyState === WebSocket.OPEN) {
+         ws.send(JSON.stringify(dataEvent));
+         console.log("Enviado:", dataEvent);
+         } else {
+            console.log("WebSocket no esta conectado");
+            connectws();
+         }
+
 }
 window.Hex = Hex;
 Hex.prototype.update = function () {

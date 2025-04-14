@@ -170,7 +170,10 @@ function gameOverDisplay() {
 	$("#socialShare").fadeIn();
 	$("#restart").fadeIn();
 	set_score_pos();
-	showPlayerRanking();
+	function showPlayerRanking() {
+		
+		console.log("Mostrando ranking de jugadores");
+	}
 }
 
 function updateHighScores (){
