@@ -134,7 +134,7 @@ function saveEvent(eventName) {
     console.log("Evento guardado:", eventName);
     var dataEvent={
         "game":"Hetrix",
-        "player":"Eliana",
+        "player":playerName,
         "event":eventName,
         "value": 1
     }
