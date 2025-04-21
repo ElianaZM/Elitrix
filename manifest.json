@@ -1,11 +1,12 @@
 {
-  "name": "Hextris",
+  "name": "Elitrix",
   "id": "elixtris_zabala",
   "scope": ".",
   "start_url": ".",
   "display": "fullscreen",
   "background_color": "#fffde7",
   "description": "Think Tetris… but on a hexagon, and way more intense.",
+
   "icons": [{
         "src": "images/icons/transparent-192.png",
         "sizes": "192x192",
@@ -61,6 +62,7 @@
   "theme_color": "#d7fff7",
   "short_name": "trix",
   "lang": "es",
+  "dir": "ltr",
   "orientation": "portrait",
   "categories": [
     "entertainment",
@@ -73,5 +75,8 @@
     "sizes": "1592x765",
     "type": "image/png"
   }
-]
+],
+"launch_handler": {
+  "client_mode": "focus-existing"
+}
 }
