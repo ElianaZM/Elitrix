@@ -2,7 +2,7 @@ const CACHE_NAME = 'v3';
 const urlsToCache = [
     '/',
     '/index.html',
-    '/css/styles.css',
+    '/style/styles.css',
     '/js/initialization.js',
     '/js/Hex.js',
     '/images/icons/maskable-512.png',
