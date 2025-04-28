@@ -33,6 +33,7 @@ const urlsToCache = [
     '/images/icons/apple-touch-180.png',
     '/images/icons/apple-touch-152.png',
     '/images/icons/apple-touch.svg',
+    
 ];
 
 self.addEventListener('install', (event) => {
