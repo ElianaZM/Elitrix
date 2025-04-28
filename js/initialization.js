@@ -362,23 +362,4 @@ function handleClickBefore(e) {
 		return;
 	}
 }
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => {
-            console.log(' Servidor registrado:', registration);
-
-            // 🔄 Background Sync
-            if ('SyncManager' in window) {
-                navigator.serviceWorker.ready.then(sw => {
-                    sw.sync.register('sync-jugadores')
-                        .then(() => console.log('🔁 SyncManager: registrado "sync-jugadores"'))
-                        .catch(err => console.error('Error registrando sync:', err));
-                });
-            }
-
-        })
-        .catch(error => {
-            console.error(' Error registrando servidor', error);
-        });
-}
 
