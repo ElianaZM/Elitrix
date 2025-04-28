@@ -551,4 +551,16 @@ body {
 				border-radius: 5px;
 				z-index: 999;
 }
+.install-app-btn-container {
+	display: none;
+  }
+  .install-app-btn {
+	padding: 5px 10px;
+	background-color: #1434eb;
+	color: white;
+	font-weight: bold;
+	font-size: 13px;
+	border-radius: 6px;
+  }
+  
 		
