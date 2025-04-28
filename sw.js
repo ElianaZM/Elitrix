@@ -1,4 +1,4 @@
-// service-worker.js
+// sw.js
 
 // Usamos el Workbox si quieres (aunque puedes hacerlo manual)
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
