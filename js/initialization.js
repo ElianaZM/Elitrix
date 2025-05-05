@@ -3,12 +3,10 @@ function connectws () {
 	ws = new WebSocket('wss://gamehubmanager-ucp2025.azurewebsites.net/ws');
 	
 	ws.onmessage = function(e) {
-	  console.log('Message:', e);
+	  console.log('Message:', e.data);
 	  try {
-	
-		const data = JSON.parse(e);
 		
-		var datos= JSON.parse(e)
+		var datos= JSON.parse(e.data)
 		console.log(datos);
 		
 	// 	if (e.data[0].players && Array.isArray(e.data[0].players)) {
