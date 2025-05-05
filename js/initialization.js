@@ -430,16 +430,21 @@ if (installApp) {
                 deferredPrompt = null;
             }
 
-            ga('send', {
-                hitType: 'event',
-                eventCategory: 'pwa-install',
-                eventAction: 'custom-installation-button-clicked',
-                eventLabel: installSource,
-                eventValue: outcome === 'accepted' ? 1 : 0
-            });
+            if (typeof ga === 'function') {
+                ga('send', {
+                    hitType: 'event',
+                    eventCategory: 'pwa-install',
+                    eventAction: 'custom-installation-button-clicked',
+                    eventLabel: installSource,
+                    eventValue: outcome === 'accepted' ? 1 : 0
+                });
+            } else {
+                console.warn("Google Analytics no está cargado todavía.");
+            }
         } else {
-            showToast('Notepad is already installed.');
+            showToast?.('Notepad is already installed.');
         }
-    });
+    }); 
 }
+
 
