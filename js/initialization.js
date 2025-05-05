@@ -116,7 +116,9 @@ function initialize(a) {
 		};
 	})();
 	$('#clickToExit').bind('click', toggleDevTools);
-	window.settings;
+	
+	let settings;
+
 	if (/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         $('.rrssb-email').remove();
 		settings = {
