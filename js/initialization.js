@@ -1,50 +1,55 @@
 let ws;
+
 function connectws () {
 	ws = new WebSocket('wss://gamehubmanager-ucp2025.azurewebsites.net/ws');
-	
-	ws.onmessage = function(e) {
-	  console.log('Message:', e.data);
-	  try {
-		
-		var datos= JSON.parse(e.data)
-		console.log(datos);
-		
-	// 	if (e.data[0].players && Array.isArray(e.data[0].players)) {
-			
-			const sortedPlayers = datos[0].players.sort((a, b) => b.value - a.value);
-			
-			const topPlayers = sortedPlayers.slice(0, 5);
-		
-			
 
-			let html = "<h3>🏆 Ranking</h3><br>";
+	ws.onmessage = function(e) {
+		console.log('Message:', e.data);
+		try {
+			const datos = JSON.parse(e.data);
+			console.log(datos);
+
+			if (!datos[0] || !Array.isArray(datos[0].players)) {
+				throw new Error("Formato de datos inválido.");
+			}
+
+			const sortedPlayers = datos[0].players.sort((a, b) => b.value - a.value);
+			const topPlayers = sortedPlayers.slice(0, 5);
+
+			const leaderboard = document.getElementById("Leaderboard");
+			leaderboard.innerHTML = ""; // Limpiar contenido anterior
+
+			const title = document.createElement("h3");
+			title.textContent = "🏆 Ranking";
+			leaderboard.appendChild(title);
+			leaderboard.appendChild(document.createElement("br"));
+
 			topPlayers.forEach((player, index) => {
-				
-				html += ` ${index + 1}: ${player.eventName} (${player.value})<br>`;
+				const name = player.eventName || "Jugador desconocido";
+				const value = player.value ?? 0;
+				const entry = document.createElement("div");
+				entry.textContent = `${index + 1}: ${name} (${value})`;
+				leaderboard.appendChild(entry);
 			});
-			
-			document.getElementById("Leaderboard").innerHTML = html;
-	// 	}
-	} catch (err) {
-		console.error("Error procesando datos de ranking:", err);
-		document.getElementById("Leaderboard").innerText = "Error cargando ranking.";
-	}
+
+		} catch (err) {
+			console.error("Error procesando datos de ranking:", err);
+			document.getElementById("Leaderboard").innerText = "Error cargando ranking.";
+		}
 	};
   
 	ws.onclose = function(e) {
-	  console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
-	  setTimeout(function() {
-		connectws();
-	  }, 1000);
+		console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+		setTimeout(connectws, 1000);
 	};
   
 	ws.onerror = function(err) {
-	  console.error('Socket encountered error: ', err.message, 'Closing socket');
-	  ws.close();
+		console.error('Socket encountered error: ', err.message, 'Closing socket');
+		ws.close();
 	};
-  }
-  
-  connectws ();
+}
+
+connectws();
 
 
 let playerName = localStorage.getItem("playerName");
