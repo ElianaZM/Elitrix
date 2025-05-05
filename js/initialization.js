@@ -416,8 +416,8 @@ window.addEventListener('appinstalled', () => {
 	deferredPrompt = null;
 
 	const source = installSource || 'browser';
-
-	
+	console.log(`App instalada desde: ${source}`);
 });
+
 
 
