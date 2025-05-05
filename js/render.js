@@ -1,13 +1,9 @@
-const trueCanvas = document.getElementById("miCanvas");
-const ctx = trueCanvas.getContext("2d");
-
 function render() {
 	var grey = '#bdc3c7';
 	if (gameState === 0) {
 		grey = "rgb(220, 223, 225)";
 	}
-	
-	const ctx = trueCanvas.getContext("2d");
+
 
 	ctx.clearRect(0, 0, trueCanvas.width, trueCanvas.height);
 	clearGameBoard();

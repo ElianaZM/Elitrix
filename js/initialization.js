@@ -117,7 +117,7 @@ function initialize(a) {
 	})();
 	$('#clickToExit').bind('click', toggleDevTools);
 	
-	let settings;
+	window.settings;
 
 	if (/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         $('.rrssb-email').remove();
@@ -371,9 +371,10 @@ let deferredPrompt;
 let installSource;
 
 window.addEventListener('beforeinstallprompt', (e) => {
-	selector().notepad.installAppButtonContainer.show();
-	deferredPrompt = e;
-	installSource = 'nativeInstallCard';
+    $('#installAppButtonContainer').show(); 
+    deferredPrompt = e;
+    installSource = 'nativeInstallCard';
+
 
 	e.userChoice.then(function (choiceResult) {
 		if (choiceResult.outcome === 'accepted') {
@@ -391,35 +392,27 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 const installApp = document.getElementById('installApp');
+if (installApp) {
+    installApp.addEventListener('click', async () => {
+        installSource = 'customInstallationButton';
 
-installApp.addEventListener('click', async () => {
-	installSource = 'customInstallationButton';
+        if (deferredPrompt !== null) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                deferredPrompt = null;
+            }
 
-	if (deferredPrompt !== null) {
-		deferredPrompt.prompt();
-		const { outcome } = await deferredPrompt.userChoice;
-		if (outcome === 'accepted') {
-			deferredPrompt = null;
-		}
-
-		ga('send', {
-			hitType: 'event',
-			eventCategory: 'pwa-install',
-			eventAction: 'custom-installation-button-clicked',
-			eventLabel: installSource,
-			eventValue: outcome === 'accepted' ? 1 : 0
-		});
-	} else {
-		showToast('Notepad is already installed.')
-	}
-});
-
-window.addEventListener('appinstalled', () => {
-	deferredPrompt = null;
-
-	const source = installSource || 'browser';
-	console.log(`App instalada desde: ${source}`);
-});
-
-
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'pwa-install',
+                eventAction: 'custom-installation-button-clicked',
+                eventLabel: installSource,
+                eventValue: outcome === 'accepted' ? 1 : 0
+            });
+        } else {
+            showToast('Notepad is already installed.');
+        }
+    });
+}
 
