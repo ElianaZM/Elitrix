@@ -390,6 +390,33 @@ window.addEventListener('beforeinstallprompt', (e) => {
 		});
 	});
 });
+function showToast(message, duration = 3000) {
+    const toast = document.createElement("div");
+    toast.textContent = message;
+    toast.style.position = "fixed";
+    toast.style.bottom = "20px";
+    toast.style.left = "50%";
+    toast.style.transform = "translateX(-50%)";
+    toast.style.background = "#333";
+    toast.style.color = "#fff";
+    toast.style.padding = "10px 20px";
+    toast.style.borderRadius = "8px";
+    toast.style.zIndex = "10000";
+    toast.style.fontFamily = "Arial, sans-serif";
+    toast.style.opacity = "0";
+    toast.style.transition = "opacity 0.3s ease-in-out";
+    
+    document.body.appendChild(toast);
+    
+    requestAnimationFrame(() => {
+        toast.style.opacity = "1";
+    });
+
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => toast.remove(), 300);
+    }, duration);
+}
 
 const installApp = document.getElementById('installApp');
 if (installApp) {
