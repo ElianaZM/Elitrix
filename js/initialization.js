@@ -414,7 +414,7 @@ window.addEventListener('appinstalled', () => {
 
 	const source = installSource || 'browser';
 
-	ga('send', 'event', 'pwa-install', 'installed', source);
+	
 });
 
 

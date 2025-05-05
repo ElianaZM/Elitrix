@@ -57,7 +57,7 @@ function Hex(sideLength) {
     this.doesBlockCollide = function(block, position, tArr) {
         if (block.settled) return;
         if (position !== undefined) {
-            let arr = tArr;
+            let arr ;
             if (position <= 0 && block.distFromHex - block.iter * this.dt * settings.scale - (this.sideLength / 2) * Math.sqrt(3) <= 0) {
                 block.distFromHex = (this.sideLength / 2) * Math.sqrt(3);
                 block.settled = 1;

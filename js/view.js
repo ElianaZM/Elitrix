@@ -19,7 +19,7 @@ function renderText(x, y, fontSize, color, text, font) {
 	fontSize *= settings.scale;
 	ctx.font = fontSize + font;
 	ctx.textAlign = 'center';
-	ctx.fillStyle = color;
+	
 	ctx.fillText(text, x, y + (fontSize / 2) - 9 * settings.scale);
 	ctx.restore();
 }
