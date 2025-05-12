@@ -17,6 +17,8 @@ const urlsToCache = [
     '/js/update.js',
     '/js/view.js',
     '/js/wavegen.js',
+    '/js/a.js',
+    '/vendor/jquery.js',
     '/images/icons/maskable-512.png',
     '/images/icons/maskable-192.png',
     '/images/icons/maskable-512.webp',
@@ -42,4 +44,13 @@ self.addEventListener('install', (event) => {
         .then (cache => cache.addAll(urlsToCache))
         );
 });
+self.addEventListener('fetch', (event) => {
+    event.respondWith(
+      caches.match(event.request)
+        .then((response) => {
+          return response || fetch(event.request);
+        })
+    );
+  });
+  
    
