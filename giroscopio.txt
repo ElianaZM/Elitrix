@@ -1,0 +1,176 @@
+// Gyroscope control system for Hextris
+class GyroscopeController {
+    constructor() {
+        this.isSupported = 'DeviceOrientationEvent' in window;
+        this.isEnabled = false;
+        this.sensitivity = 10; // Adjust this value to change rotation sensitivity
+        this.lastBeta = 0;
+        this.threshold = 5; // Minimum degree change required to trigger rotation
+    }
+
+    init() {
+        if (!this.isSupported) {
+// Gyroscope control system for Hextris
+class GyroscopeController {
+    constructor() {
+        this.isSupported = 'DeviceOrientationEvent' in window;
+        this.isEnabled = false;
+        this.sensitivity = 10;
+        this.threshold = 15; // Tilt angle threshold to trigger rotation
+        this.calibrationOffset = 0;
+        this.isCalibrating = false;
+        this.calibrationSamples = [];
+        this.lastRotationTime = 0;
+        this.rotationCooldown = 150; // Minimum time between rotations (ms)
+    }
+
+    init() {
+        if (!this.isSupported) {
+            console.warn('Gyroscope not supported on this device');
+            return false;
+        }
+
+        // iOS 13+ requires permission
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            this.showIOSPermissionButton();
+        } else {
+            // Android and older iOS devices
+            this.enable();
+            this.calibrate();
+        }
+        return true;
+    }
+
+    showIOSPermissionButton() {
+        const button = document.createElement('button');
+        button.innerHTML = 'Enable Tilt Controls';
+        button.style.position = 'fixed';
+        button.style.top = '50%';
+        button.style.left = '50%';
+        button.style.transform = 'translate(-50%, -50%)';
+        button.style.zIndex = '1000';
+        button.style.padding = '15px 30px';
+        button.style.backgroundColor = '#2ecc71';
+        button.style.color = 'white';
+        button.style.border = 'none';
+        button.style.borderRadius = '5px';
+        button.style.fontFamily = 'Exo 2';
+        button.style.fontSize = '18px';
+        button.style.cursor = 'pointer';
+
+        button.onclick = async () => {
+            try {
+                const permission = await DeviceOrientationEvent.requestPermission();
+                if (permission === 'granted') {
+                    this.enable();
+                    this.calibrate();
+                    button.remove();
+                }
+            } catch (e) {
+                console.error('Error requesting gyroscope permission:', e);
+            }
+        };
+
+        document.body.appendChild(button);
+    }
+
+    calibrate() {
+        this.isCalibrating = true;
+        this.calibrationSamples = [];
+        
+        const msg = document.createElement('div');
+        msg.innerHTML = 'Hold your device flat<br>Calibrating...';
+        msg.style.position = 'fixed';
+        msg.style.top = '20%';
+        msg.style.left = '50%';
+        msg.style.transform = 'translate(-50%, -50%)';
+        msg.style.backgroundColor = 'rgba(0,0,0,0.8)';
+        msg.style.color = 'white';
+        msg.style.padding = '20px';
+        msg.style.borderRadius = '10px';
+        msg.style.fontFamily = 'Exo 2';
+        msg.style.textAlign = 'center';
+        msg.style.zIndex = '1000';
+        msg.id = 'calibration-message';
+        document.body.appendChild(msg);
+
+        // Collect samples for 1.5 seconds
+        setTimeout(() => {
+            this.isCalibrating = false;
+            if (this.calibrationSamples.length > 0) {
+                this.calibrationOffset = this.calibrationSamples.reduce((a, b) => a + b) / this.calibrationSamples.length;
+            }
+            document.getElementById('calibration-message')?.remove();
+            
+            // Show quick tutorial
+            const tutorial = document.createElement('div');
+            tutorial.innerHTML = 'Tilt device left/right to rotate';
+            tutorial.style.position = 'fixed';
+            tutorial.style.top = '20%';
+            tutorial.style.left = '50%';
+            tutorial.style.transform = 'translate(-50%, -50%)';
+            tutorial.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            tutorial.style.color = 'white';
+            tutorial.style.padding = '20px';
+            tutorial.style.borderRadius = '10px';
+            tutorial.style.fontFamily = 'Exo 2';
+            tutorial.style.textAlign = 'center';
+            tutorial.style.zIndex = '1000';
+            document.body.appendChild(tutorial);
+            setTimeout(() => tutorial.remove(), 2000);
+        }, 1500);
+    }
+
+    enable() {
+        this.isEnabled = true;
+        window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
+    }
+
+    disable() {
+        this.isEnabled = false;
+        window.removeEventListener('deviceorientation', this.handleOrientation.bind(this));
+    }
+
+    handleOrientation(event) {
+        if (!this.isEnabled || gameState !== 1) return;
+
+        const now = Date.now();
+        if (now - this.lastRotationTime < this.rotationCooldown) return;
+
+        // Use gamma for left/right tilt
+        const gamma = event.gamma; // Left/Right tilt in degrees
+        
+        if (gamma === null) return;
+
+        if (this.isCalibrating) {
+            this.calibrationSamples.push(gamma);
+            return;
+        }
+
+        // Adjust gamma based on calibration
+        const adjustedGamma = gamma - this.calibrationOffset;
+
+        // Simulate touch on left or right side based on tilt
+        if (Math.abs(adjustedGamma) > this.threshold) {
+            if (adjustedGamma > 0) {
+                // Tilting right - simulate touch on right side
+                MainHex.rotate(-1);
+            } else {
+                // Tilting left - simulate touch on left side
+                MainHex.rotate(1);
+            }
+            this.lastRotationTime = now;
+        }
+    }
+
+    setSensitivity(value) {
+        // value should be between 1 and 10
+        this.sensitivity = Math.max(1, Math.min(10, value));
+        this.threshold = 25 - (this.sensitivity * 2); // More sensitive = lower threshold
+        this.rotationCooldown = 200 - (this.sensitivity * 15); // More sensitive = faster rotation
+    }
+}
+
+// Create global instance
+window.gyroscope = new GyroscopeController(); 
+window.gyroscope = new GyroscopeController(); 
