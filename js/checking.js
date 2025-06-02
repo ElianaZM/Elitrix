@@ -54,12 +54,16 @@ function consolidateBlocks(hex, side, index) {
         return;
     }
     
+    // Trigger vibration for matched blocks
+    if (window.Vibration) {
+        Vibration.onBlockMatch(deleting.length);
+    }
+    
     // Combo detection - just before deletion process
     if (deleting.length >= 3) {
         let puntos = 9 + (deleting.length - 3); 
-    // console.log('Combo detectado: Se eliminaron', deleting.length, 'bloques. Se suman', puntos, 'puntos.');
-    console.log('Combo detectado: Se eliminaron', deleting.length, 'bloques.');
-    saveEvent('score', puntos); 
+        console.log('Combo detectado: Se eliminaron', deleting.length, 'bloques.');
+        saveEvent('score', puntos); 
     }
 
     // Process the deletion of blocks
