@@ -13,7 +13,8 @@ const Vibration = {
     // Initialize vibration settings
     init() {
         // Add vibration setting to game settings
-        if (this.isSupported && !('vibrationEnabled' in settings)) {
+        if (this.isSupported && typeof settings === 'object' && !('vibrationEnabled' in settings)) {
+
             settings.vibrationEnabled = true;
         }
     },

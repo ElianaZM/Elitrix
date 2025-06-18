@@ -232,6 +232,7 @@ function handleClickTap(x,y) {
 	if (x > window.innerWidth/2) {
 		MainHex.rotate(-1);
 	}
+}
 
 	// Expone funciones globales para control por giroscopio
 window.rotateLeft = function() {
@@ -245,6 +246,3 @@ window.rotateRight = function() {
 		MainHex.rotate(-1);
 	}
 };
-
-}
-

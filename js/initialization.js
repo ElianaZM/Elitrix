@@ -139,6 +139,8 @@ function initialize(a) {
 			creationSpeedModifier: 0.73,
 			comboTime: 310
 		};
+		settings.vibrationEnabled = true; // fuerza vibración activada desde el principio
+
 	} else {
 		settings = {
 			os: "other",
