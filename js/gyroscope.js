@@ -68,9 +68,9 @@ function startGyroControl() {
 
         display.innerHTML = `
             <strong>Giroscopio:</strong><br>
-            Gamma (izq/der): ${currentGamma}°<br>
-            Beta (adelante/atrás): ${Math.round(event.beta || 0)}°<br>
-            Alpha (brújula): ${Math.round(event.alpha || 0)}°
+            Gamma: ${currentGamma}°<br>
+            Beta: ${Math.round(event.beta || 0)}°<br>
+            Alpha: ${Math.round(event.alpha || 0)}°
         `;
 
         const gammaDiff = currentGamma - lastGamma;
