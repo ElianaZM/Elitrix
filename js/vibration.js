@@ -1,7 +1,8 @@
 // Vibration utility for Hextris
 const Vibration = {
     // Check if vibration is supported
-    isSupported: true,
+    isSupported: 'vibrate' in navigator || 'mozVibrate' in navigator,
+
 
     // Vibration patterns for different events
     patterns: {
@@ -37,7 +38,7 @@ const Vibration = {
 
     if (Array.isArray(pattern)) {
         try {
-            console.log('✅ vibración simulada:', pattern);
+            navigator.vibrate(pattern);
 
         } catch (e) {
             console.warn('Vibration failed:', e);
