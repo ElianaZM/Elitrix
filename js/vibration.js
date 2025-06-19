@@ -18,27 +18,34 @@ const Vibration = {
         }
     },
 
-    // Vibrate based on number of matched blocks
     onBlockMatch(numBlocks) {
-        if (!this.isSupported || !settings.vibrationEnabled) return;
+    if (!this.isSupported || !settings?.vibrationEnabled) {
+        console.log('Vibration not supported or disabled');
+        return;
+    }
 
-        let pattern;
-        if (numBlocks >= 5) {
-            pattern = this.patterns.match5;
-        } else if (numBlocks === 4) {
-            pattern = this.patterns.match4;
-        } else if (numBlocks === 3) {
-            pattern = this.patterns.match3;
-        }
+    let pattern;
+    if (numBlocks >= 5) {
+        pattern = this.patterns.match5;
+    } else if (numBlocks === 4) {
+        pattern = this.patterns.match4;
+    } else if (numBlocks === 3) {
+        pattern = this.patterns.match3;
+    }
 
-        if (pattern) {
-            try {
-                navigator.vibrate(pattern);
-            } catch (e) {
-                console.warn('Vibration failed:', e);
-            }
+    console.log('🔔 Llamando vibración con patrón:', pattern); // <- Agregado
+
+    if (Array.isArray(pattern)) {
+        try {
+            navigator.vibrate([200]);
+        } catch (e) {
+            console.warn('Vibration failed:', e);
         }
-    },
+    } else {
+        console.warn('❌ Patrón no válido para vibración:', pattern);
+    }
+},
+
 
     // Enable/disable vibration
     enable() {
