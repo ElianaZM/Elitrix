@@ -140,7 +140,7 @@ function initialize(a) {
 			comboTime: 310
 		};
 		settings.vibrationEnabled = true; // fuerza vibración activada desde el principio
-
+         
 	} else {
 		settings = {
 			os: "other",
@@ -160,7 +160,7 @@ function initialize(a) {
 			creationSpeedModifier: 0.65,
 			comboTime: 310
 		};
-
+       settings.vibrationEnabled = true;
 	}
 	if(/Android/i.test(navigator.userAgent)) {
 		settings.os = "android";
@@ -438,5 +438,5 @@ if (installApp) {
         }
     }); 
 }
-
+Vibration.init(); 
 
