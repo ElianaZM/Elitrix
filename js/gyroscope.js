@@ -80,9 +80,15 @@ function startGyroControl() {
                 if (currentGamma > 10) {
                     if (typeof rotateRight === 'function') rotateRight();
                     if (typeof Vibration !== 'undefined') Vibration.onBlockMatch(3);
+                    console.log('Giro detectado, llamando a Vibration.onBlockMatch(3)');
+                    Vibration.onBlockMatch(3);
+
                 } else if (currentGamma < -10) {
                     if (typeof rotateLeft === 'function') rotateLeft();
                     if (typeof Vibration !== 'undefined') Vibration.onBlockMatch(3);
+                    console.log('Giro detectado, llamando a Vibration.onBlockMatch(3)');
+                    Vibration.onBlockMatch(3);
+
                 }
                 lastRotationTime = now;
                 lastGamma = currentGamma;
